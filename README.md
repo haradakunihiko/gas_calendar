@@ -7,7 +7,7 @@ slackの通常の連携だとprivateイベントまで通知しちゃうので�
 ## 導入
 ```
 # claspの導入
-yarn install -g clasp
+yarn add -g clasp
 
 # 開発するなら。使うだけなら不要
 # yarn install 
