@@ -26,11 +26,16 @@ class ShareDailyMyEvent {
     formatEvents(events: GoogleAppsScript.Calendar.CalendarEvent[]): string {
         
         return events.map(function (e) {
-            var prefix = "";
-            var title = e.getTitle();
-            var startTime = e.getStartTime();
-            var endTime = e.getEndTime();
-            var location = e.getLocation();
+            let prefix = "";
+            let title = e.getTitle();
+            const startTime = e.getStartTime();
+            const endTime = e.getEndTime();
+            const location = e.getLocation();
+            const splitEventId = e.getId().split('@');
+            
+            const eventURL = "https://www.google.com/calendar/event?eid=" + Utilities.base64Encode(splitEventId[0] + " " + e.getOriginalCalendarId());
+            Logger.log(eventURL);
+            
     
             if (e.getVisibility() === CalendarApp.Visibility.PRIVATE) {
                 title = '非公開イベント';
@@ -47,7 +52,7 @@ class ShareDailyMyEvent {
                 }
             }
             
-            return `${prefix}${title}`;
+            return `${prefix}<${eventURL}|${title}>`;
         }).join('\n');
     }
 
@@ -56,13 +61,13 @@ class ShareDailyMyEvent {
             return;
         }
 
-        var now = new Date();
+        const now = new Date();
         if (now.getDay() == 0 || now.getDay() == 6) {
             return;
         }
 
-        var week = ['日', '月', '火', '水', '木', '金', '土'];
-        var day = ((now.getMonth() + 1) + '/' + now.getDate() + ' (' + week[now.getDay()] + ')');
+        const week = ['日', '月', '火', '水', '木', '金', '土'];
+        const day = ((now.getMonth() + 1) + '/' + now.getDate() + ' (' + week[now.getDay()] + ')');
 
         this.slack.post('my_daily_event', day + "の本日の予定\n```" + contents + "```\n")
     }

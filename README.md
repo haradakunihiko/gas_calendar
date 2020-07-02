@@ -19,6 +19,22 @@ clasp create --type standalone --title "GasCalendar or whatever" --rootDir "gas_
 clasp push
 ```
 
+## タイムゾーンの修正
+以下になるように、`.clasp.json`にtimeZoneを追加
+```
+{
+    "scriptId": "**********",
+    "rootDir": "gas_root",
+    "timeZone": "Asia/Tokyo"
+}
+```
+
+再度pushする
+
+```
+clasp push
+```
+
 ## 設定
 ファイル　> プロジェクトのプロパティ > スクリプトのプロパティより設定を行います。
 
