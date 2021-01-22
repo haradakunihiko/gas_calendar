@@ -33,7 +33,7 @@ class ShareDailyMyEvent {
             const location = e.getLocation();
             const splitEventId = e.getId().split('@');
             
-            const eventURL = "https://www.google.com/calendar/event?eid=" + Utilities.base64Encode(splitEventId[0] + " " + e.getOriginalCalendarId());
+            const eventURL = "https://www.google.com/calendar/event?eid=" + (Utilities.base64Encode(splitEventId[0] + " " + e.getOriginalCalendarId()).replace('==', ''));
             Logger.log(eventURL);
             
     
